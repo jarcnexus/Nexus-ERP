@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusERP — Enterprise Resource Planning Reimagined</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for interactive graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-cube text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">NexusERP</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#dashboard" class="hover:text-brand-400 transition-colors">Dashboard</a>
+                <a href="#graphs" class="hover:text-brand-400 transition-colors">Analytics</a>
+                <a href="#users" class="hover:text-brand-400 transition-colors">Users & RBAC</a>
+                <a href="#roi" class="hover:text-brand-400 transition-colors">ROI Calculator</a>
+                <a href="#features" class="hover:text-brand-400 transition-colors">Modules</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button onclick="openDemoModal()" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-xl border border-slate-700 hover:border-slate-500 bg-slate-900 text-sm font-medium text-slate-200 transition-all hover:bg-slate-800">
+                    Live Demo
+                </button>
+                <a href="#roi" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-sm font-medium text-white shadow-lg shadow-brand-500/25 hover:from-brand-500 hover:to-indigo-500 transition-all">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-32 overflow-hidden border-b border-slate-900">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(99,102,241,0.15),rgba(255,255,255,0))]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-950/80 border border-brand-800/60 text-brand-300 text-xs font-semibold mb-6 shadow-inner">
+                <span class="flex h-2 w-2 rounded-full bg-brand-500 animate-pulse"></span>
+                <span>NexusERP v4.2 Released — Zero Build Steps Required</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.1]">
+                The Unified <span class="bg-gradient-to-r from-brand-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">Enterprise Operating</span> System
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
+                Manage supply chain, live financial ledgers, user role security, and deep predictive ROI analytics from a single, blazing-fast modular interface.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#dashboard" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-xl shadow-brand-600/30 transition-all flex items-center justify-center space-x-2">
+                    <span>Explore Live Dashboard</span>
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
+                <a href="https://github.com" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold transition-all flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-github text-lg"></i>
+                    <span>Clone GitHub Repo</span>
+                </a>
+            </div>
+
+            <!-- Quick Metrics Banner -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto text-left">
+                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
+                    <div class="text-slate-400 text-xs font-medium uppercase tracking-wider">System Uptime</div>
+                    <div class="mt-2 flex items-baseline justify-between">
+                        <span class="text-2xl font-bold text-white">99.99%</span>
+                        <span class="text-emerald-400 text-xs font-semibold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">+0.02%</span>
+                    </div>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
+                    <div class="text-slate-400 text-xs font-medium uppercase tracking-wider">Active Transactions</div>
+                    <div class="mt-2 flex items-baseline justify-between">
+                        <span class="text-2xl font-bold text-white" id="liveTxCount">142,890</span>
+                        <span class="text-emerald-400 text-xs font-semibold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">+12.4%</span>
+                    </div>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
+                    <div class="text-slate-400 text-xs font-medium uppercase tracking-wider">Active RBAC Users</div>
+                    <div class="mt-2 flex items-baseline justify-between">
+                        <span class="text-2xl font-bold text-white">1,248</span>
+                        <span class="text-brand-400 text-xs font-semibold bg-brand-950/60 px-2 py-0.5 rounded border border-brand-800/50">Online</span>
+                    </div>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
+                    <div class="text-slate-400 text-xs font-medium uppercase tracking-wider">Projected Annual ROI</div>
+                    <div class="mt-2 flex items-baseline justify-between">
+                        <span class="text-2xl font-bold text-white">314%</span>
+                        <span class="text-emerald-400 text-xs font-semibold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">Optimized</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Dashboard Section -->
+    <section id="dashboard" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <div class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2">Real-Time Control Center</div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Executive Dashboard</h2>
+            </div>
+            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                <button onclick="refreshDashboardData()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-sm font-medium flex items-center space-x-2 transition-all">
+                    <i class="fa-solid fa-rotate-right" id="refreshIcon"></i>
+                    <span>Sync Data</span>
+                </button>
+                <div class="px-3 py-2 rounded-xl bg-emerald-950/60 border border-emerald-800/50 text-emerald-400 text-xs font-semibold flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <span>Live Stream Connected</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800/80 relative overflow-hidden group hover:border-brand-500/50 transition-all">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Revenue YTD</p>
+                        <h3 class="text-2xl font-extrabold text-white mt-2" id="metricRevenue">$4,285,420</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/60 flex items-center justify-center text-brand-400 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-dollar-sign text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-xs text-emerald-400 font-medium">
+                    <i class="fa-solid fa-arrow-trend-up mr-1"></i>
+                    <span>+18.2% vs last year</span>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800/80 relative overflow-hidden group hover:border-brand-500/50 transition-all">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Operational Expenses</p>
+                        <h3 class="text-2xl font-extrabold text-white mt-2" id="metricExpenses">$1,142,800</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-purple-950 border border-purple-800/60 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-wallet text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-xs text-emerald-400 font-medium">
+                    <i class="fa-solid fa-arrow-trend-down mr-1"></i>
+                    <span>-4.5% cost reduction</span>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800/80 relative overflow-hidden group hover:border-brand-500/50 transition-all">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Supply Chain Fulfillment</p>
+                        <h3 class="text-2xl font-extrabold text-white mt-2" id="metricFulfillment">98.4%</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-blue-950 border border-blue-800/60 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-truck-fast text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-xs text-emerald-400 font-medium">
+                    <i class="fa-solid fa-arrow-trend-up mr-1"></i>
+                    <span>+2.1% efficiency</span>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800/80 relative overflow-hidden group hover:border-brand-500/50 transition-all">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Pending Approvals</p>
+                        <h3 class="text-2xl font-extrabold text-white mt-2" id="metricApprovals">24 Items</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-amber-950 border border-amber-800/60 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-xs text-amber-400 font-medium">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+                    <span>Requires review</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions Table Card -->
+        <div class="rounded-2xl bg-slate-900 border border-slate-800/80 overflow-hidden">
+            <div class="p-6 border-b border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white">Recent Enterprise Transactions</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Real-time ledger entries across global subsidiaries.</p>
+                </div>
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <input type="text" id="txSearch" placeholder="Search transactions..." onkeyup="filterTransactions()" class="px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 w-full sm:w-64">
+                    <button onclick="addNewTransactionModal()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium transition-all whitespace-nowrap">
+                        <i class="fa-solid fa-plus mr-1"></i> New Entry
+                    </button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="transactionTable">
+                    <thead>
+                        <tr class="bg-slate-950/60 text-slate-400 text-xs font-semibold uppercase tracking-wider border-b border-slate-800">
+                            <th class="py-4 px-6">Transaction ID</th>
+                            <th class="py-4 px-6">Department</th>
+                            <th class="py-4 px-6">Description</th>
+                            <th class="py-4 px-6">Amount</th>
+                            <th class="py-4 px-6">Status</th>
+                            <th class="py-4 px-6 text-right">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 text-sm text-slate-300" id="transactionTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-slate-950/40 border-t border-slate-800 text-xs text-slate-400 flex items-center justify-between">
+                <span>Showing 5 of 142,890 total transactions</span>
+                <div class="flex items-center space-x-2">
+                    <button class="px-3 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">Previous</button>
+                    <button class="px-3 py-1 rounded bg-brand-600 text-white">1</button>
+                    <button class="px-3 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">2</button>
+                    <button class="px-3 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">Next</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics & Graphs Section -->
+    <section id="graphs" class="py-24 bg-slate-900/40 border-y border-slate-900 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <div class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2">Deep Enterprise Telemetry</div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Interactive Analytics & Graphs</h2>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center space-x-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800">
+                    <button onclick="updateChartPeriod('monthly')" id="btnMonthly" class="px-4 py-1.5 rounded-lg bg-brand-600 text-white text-xs font-semibold transition-all">Monthly</button>
+                    <button onclick="updateChartPeriod('quarterly')" id="btnQuarterly" class="px-4 py-1.5 rounded-lg text-slate-400 hover:text-white text-xs font-semibold transition-all">Quarterly</button>
+                    <button onclick="updateChartPeriod('yearly')" id="btnYearly" class="px-4 py-1.5 rounded-lg text-slate-400 hover:text-white text-xs font-semibold transition-all">Yearly</button>
+                </div>
+            </div>
+
+            <!-- Graphs Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Financial Performance Chart -->
+                <div class="lg:col-span-2 p-6 rounded-2xl bg-slate-900 border border-slate-800/80 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Revenue vs. Operating Costs</h3>
+                            <p class="text-xs text-slate-400">Comparing fiscal inflow against departmental expenditures.</p>
+                        </div>
+                        <div class="flex items-center space-x-4 text-xs font-medium">
+                            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-brand-500"></span><span class="text-slate-300">Revenue</span></span>
+                            <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span><span class="text-slate-300">Expenses</span></span>
+                        </div>
+                    </div>
+                    <div class="h-80 relative">
+                        <canvas id="financialChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Departmental Budget Allocation Doughnut Chart -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800/80 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Resource Allocation</h3>
+                        <p class="text-xs text-slate-400">Budget distribution by business unit.</p>
+                    </div>
+                    <div class="h-64 relative my-4 flex items-center justify-center">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
+                        <div class="flex items-center space-x-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span><span>Supply Chain (35%)</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span>R&D (25%)</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Operations (20%)</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span><span>Marketing (20%)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Analytics Row -->
+            <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800/80">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Supply Chain Throughput & Latency</h3>
+                            <p class="text-xs text-slate-400">Inventory delivery time across global fulfillment centers.</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-950 text-brand-400 text-xs font-semibold border border-brand-800/50">Live Feed</span>
+                    </div>
+                    <div class="h-64 relative">
+                        <canvas id="supplyChainChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800/80">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">System Resource & CPU Utilization</h3>
+                            <p class="text-xs text-slate-400">Server load across multi-region cloud cluster nodes.</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 text-xs font-semibold border border-emerald-800/50">Optimal</span>
+                    </div>
+                    <div class="h-64 relative">
+                        <canvas id="serverLoadChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Users & Role-Based Access Control (RBAC) Section -->
+    <section id="users" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <div class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2">Security & Permissions</div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">User Management & RBAC</h2>
+            </div>
+            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                <button onclick="openAddUserModal()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium transition-all shadow-lg shadow-brand-500/20">
+                    <i class="fa-solid fa-user-plus mr-2"></i> Add Enterprise User
+                </button>
+            </div>
+        </div>
+
+        <!-- Role Permissions Matrix Banner -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="p-5 rounded-2xl bg-slate-900 border border-brand-500/40 relative">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="px-2.5 py-1 rounded bg-brand-950 text-brand-300 text-xs font-bold border border-brand-800">Administrator</span>
+                    <i class="fa-solid fa-shield-halved text-brand-400"></i>
+                </div>
+                <p class="text-xs text-slate-400 mb-3">Full system access, audit logs, user provisioning, and financial overrides.</p>
+                <div class="text-sm font-bold text-white">12 Users Assigned</div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800/80">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="px-2.5 py-1 rounded bg-purple-950 text-purple-300 text-xs font-bold border border-purple-800">Financial Controller</span>
+                    <i class="fa-solid fa-coins text-purple-400"></i>
+                </div>
+                <p class="text-xs text-slate-400 mb-3">Ledger management, expense approvals, tax reporting, and P&L statements.</p>
+                <div class="text-sm font-bold text-white">28 Users Assigned</div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800/80">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="px-2.5 py-1 rounded bg-blue-950 text-blue-300 text-xs font-bold border border-blue-800">Supply Chain Manager</span>
+                    <i class="fa-solid fa-warehouse text-blue-400"></i>
+                </div>
+                <p class="text-xs text-slate-400 mb-3">Inventory audits, vendor purchase orders, warehouse logistics, and shipments.</p>
+                <div class="text-sm font-bold text-white">64 Users Assigned</div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800/80">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700">Standard Viewer</span>
+                    <i class="fa-solid fa-eye text-slate-400"></i>
+                </div>
+                <p class="text-xs text-slate-400 mb-3">Read-only access to department dashboards, metrics, and operational reports.</p>
+                <div class="text-sm font-bold text-white">1,144 Users Assigned</div>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="rounded-2xl bg-slate-900 border border-slate-800/80 overflow-hidden">
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-white">Active Directory Directory</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Manage enterprise accounts, roles, and security tokens.</p>
+                </div>
+                <input type="text" id="userSearch" placeholder="Filter by name or email..." onkeyup="filterUsers()" class="px-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 w-64">
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="userTable">
+                    <thead>
+                        <tr class="bg-slate-950/60 text-slate-400 text-xs font-semibold uppercase tracking-wider border-b border-slate-800">
+                            <th class="py-4 px-6">User / Employee</th>
+                            <th class="py-4 px-6">Department</th>
+                            <th class="py-4 px-6">Assigned Role</th>
+                            <th class="py-4 px-6">Status</th>
+                            <th class="py-4 px-6">Last Active</th>
+                            <th class="py-4 px-6 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 text-sm text-slate-300" id="userTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator Section -->
+    <section id="roi" class="py-24 bg-gradient-to-b from-slate-900/40 via-brand-950/20 to-slate-950 border-t border-slate-900 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2">Financial Modeling</div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Enterprise ROI Calculator</h2>
+                <p class="mt-4 text-slate-400 text-base">
+                    Calculate your organization's projected cost savings, operational efficiency gains, and payback period by switching to NexusERP.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Calculator Controls -->
+                <div class="lg:col-span-6 p-8 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center justify-between">
+                        <span>Input Parameters</span>
+                        <i class="fa-solid fa-sliders text-brand-400"></i>
+                    </h3>
+
+                    <!-- Slider 1: Employee Count -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-medium text-slate-300">Total Enterprise Employees</label>
+                            <span id="sliderEmployeesVal" class="text-brand-400 font-bold px-2.5 py-1 rounded bg-brand-950 border border-brand-800/60">250</span>
+                        </div>
+                        <input type="range" id="sliderEmployees" min="50" max="5000" step="50" value="250" oninput="calculateROI()" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1"><span>50</span><span>5,000+</span></div>
+                    </div>
+
+                    <!-- Slider 2: Average Hourly Wage -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-medium text-slate-300">Avg. Hourly Employee Wage ($)</label>
+                            <span id="sliderWageVal" class="text-brand-400 font-bold px-2.5 py-1 rounded bg-brand-950 border border-brand-800/60">$35</span>
+                        </div>
+                        <input type="range" id="sliderWage" min="15" max="150" step="5" value="35" oninput="calculateROI()" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1"><span>$15</span><span>$150</span></div>
+                    </div>
+
+                    <!-- Slider 3: Weekly Hours Spent on Manual Tasks -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-medium text-slate-300">Manual Hours / Employee / Week</label>
+                            <span id="sliderHoursVal" class="text-brand-400 font-bold px-2.5 py-1 rounded bg-brand-950 border border-brand-800/60">6 hrs</span>
+                        </div>
+                        <input type="range" id="sliderHours" min="2" max="20" step="1" value="6" oninput="calculateROI()" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                        <div class="flex justify-between text-xs text-slate-500 mt-1"><span>2 hrs</span><span>20 hrs</span></div>
+                    </div>
+
+                    <!-- Select 4: Current Legacy System -->
+                    <div class="mb-4">
+                        <label class="text-sm font-medium text-slate-300 block mb-2">Current System Architecture</label>
+                        <select id="selectSystem" onchange="calculateROI()" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-brand-500">
+                            <option value="spreadsheets">Disconnected Spreadsheets & Legacy ERP</option>
+                            <option value="sap_old">On-Premise SAP / Oracle (Outdated)</option>
+                            <option value="custom">Custom In-House Built Solution</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Calculator Results Display -->
+                <div class="lg:col-span-6 p-8 rounded-3xl bg-gradient-to-br from-brand-950/40 via-slate-900 to-slate-900 border border-brand-500/30 shadow-2xl relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center justify-between">
+                        <span>Projected Financial Return</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800/50 font-semibold">Verified Model</span>
+                    </h3>
+
+                    <div class="space-y-6">
+                        <div class="p-6 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+                            <div class="text-xs font-semibold uppercase tracking-wider text-slate-400">Estimated Annual Labor Savings</div>
+                            <div class="text-4xl sm:text-5xl font-extrabold text-white mt-2" id="roiSavings">$273,000</div>
+                            <div class="text-xs text-emerald-400 mt-2 flex items-center"><i class="fa-solid fa-circle-check mr-1.5"></i> Based on 85% reduction in manual data entry overhead</div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-5 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+                                <div class="text-xs font-medium text-slate-400 uppercase">Net ROI Multiplier</div>
+                                <div class="text-2xl font-bold text-brand-400 mt-1" id="roiMultiplier">420%</div>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+                                <div class="text-xs font-medium text-slate-400 uppercase">Payback Period</div>
+                                <div class="text-2xl font-bold text-emerald-400 mt-1" id="roiPayback">3.2 Months</div>
+                            </div>
+                        </div>
+
+                        <button onclick="openDemoModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold shadow-xl shadow-brand-600/30 transition-all flex items-center justify-center space-x-2">
+                            <span>Request Custom Enterprise Audit</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Enterprise Modules Section -->
+    <section id="features" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-900 scroll-mt-20">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2">Modular Ecosystem</div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Built for Every Enterprise Department</h2>
+            <p class="mt-4 text-slate-400 text-sm">Seamlessly synchronized modules operating on a single ACID-compliant database core.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-8 rounded-2xl bg-slate-900 border border-slate-800/80 hover:border-brand-500/50 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-brand-950 border border-brand-800 flex items-center justify-center text-brand-400 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-chart-pie text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Financial Ledger & GAAP</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Automated multi-currency general ledger, accounts payable/receivable, tax calculation engine, and instant P&L statement generation.</p>
+            </div>
+
+            <div class="p-8 rounded-2xl bg-slate-900 border border-slate-800/80 hover:border-brand-500/50 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-boxes-stacked text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Supply Chain & Inventory</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Real-time stock tracking, barcode/RFID scanning integrations, automated reorder triggers, and multi-warehouse logistics optimization.</p>
+            </div>
+
+            <div class="p-8 rounded-2xl bg-slate-900 border border-slate-800/80 hover:border-brand-500/50 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-blue-950 border border-blue-800 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-users-gear text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">HR & Payroll Automation</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Comprehensive personnel records, biometric time-tracking synchronization, automated tax withholdings, and localized payroll disbursement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-12 bg-slate-950 text-slate-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">N</div>
+                <span class="text-white font-bold">NexusERP Enterprise Systems</span>
+            </div>
+            <div class="text-center sm:text-right">
+                <p>&copy; 2026 NexusERP Inc. All rights reserved. Zero Build Step Static Architecture.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl relative">
+            <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="w-12 h-12 rounded-2xl bg-brand-950 border border-brand-800 flex items-center justify-center text-brand-400 mb-6">
+                <i class="fa-solid fa-paper-plane text-xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">Schedule Enterprise Demo</h3>
+            <p class="text-slate-400 text-sm mb-6">Experience a personalized walkthrough with our senior ERP solution architects.</p>
+            <form onsubmit="handleDemoSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 uppercase mb-1">Work Email</label>
+                    <input type="email" required placeholder="alex@enterprise.com" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 uppercase mb-1">Company Name</label>
+                    <input type="text" required placeholder="Global Logistics Corp" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-500">
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-all">Confirm Demo Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic (script.js) -->
+    <script src="script.js"></script>
+</body>
+</html>
